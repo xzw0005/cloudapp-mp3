@@ -26,11 +26,29 @@ public class TopNFinderBolt extends BaseBasicBolt {
  /*
     ----------------------TODO-----------------------
     Task: keep track of the top N words
-
-
     ------------------------------------------------- */
+	HashMap<String, Integer> allWordsMap = new HashMap<String, Integer>();
 
-
+	String word = tuple.getStringByField("word");
+	Integer count = tuple.getIntegerByField("count");
+	allWordsMap.put(word, count);
+	
+	List<String> keyList = new ArrayList<String>(allWordsMap.keySet());
+	
+	Collections.sort(keyList, new Comparator<String>() {
+		public int compare(String s1, String s2) {
+			return (allWordsMap.get(s2) - allWordsMap.get(s1));
+		}
+	} );
+	
+	for (int i = 0; i < this.N; i++) {
+		if (i < keyList.size()) {
+			currentTopWords.put(keyList.get(i), allWordsMap.get(keyList.get(i)));	
+		}
+	}
+	
+	// END TODO-----------------------
+	
     //reports the top N words periodically
     if (System.currentTimeMillis() - lastReportTime >= intervalToReport) {
       collector.emit(new Values(printMap()));

@@ -19,7 +19,7 @@ public class FileReaderSpout implements IRichSpout {
 
   // extra
   private FileReader fileReader;
-  private boolean isComplete = false;
+  private boolean isCompleted = false;
 
   @Override
   public void open(Map conf, TopologyContext context,
@@ -29,13 +29,12 @@ public class FileReaderSpout implements IRichSpout {
     ----------------------TODO-----------------------
     Task: initialize the file reader
     ------------------------------------------------- */
-	String fileName = conf.get("input").toString();
+	String fileName = conf.get("inputFile").toString();
 	try {
-		FileReader fileReader = new FileReader(fileName);
+		//FileReader fileReader = new FileReader(fileName);
+		fileReader = new FileReader(fileName);
 	}
-	catch (FileNotFoundException e) {
-		throw new RuntimeException();
-	}
+	catch (FileNotFoundException e) {}
 	
 	// END TODO
 
@@ -53,14 +52,12 @@ public class FileReaderSpout implements IRichSpout {
     2. don't forget to sleep when the file is entirely read to prevent a busy-loop
 
     ------------------------------------------------- */
-	if (isComplete) {
+	if (isCompleted) {
 		try {
 			//Utils.sleep(100);
-			Thread.sleep(100);
+			Thread.sleep(1000);
 		}
-		catch (InterruptedException e) {
-			
-		}
+		catch (InterruptedException e) {}
 	}
 	
 	
@@ -79,7 +76,7 @@ public class FileReaderSpout implements IRichSpout {
 		e.printStackTrace();
 	}
 	finally {
-		isComplete = true;
+		isCompleted = true;
 	}	
 	// END TODO
   }

@@ -28,7 +28,7 @@ public class FileReaderSpout implements IRichSpout {
     ----------------------TODO-----------------------
     Task: initialize the file reader
     ------------------------------------------------- */
-	String fileName = config.get("input").toString();
+	String fileName = conf.get("input").toString();
 	try {
 		FileReader fileReader = new FileReader(fileName);
 	}
@@ -53,7 +53,7 @@ public class FileReaderSpout implements IRichSpout {
 
     ------------------------------------------------- */
 	if (isComplete) {
-		Utils.sleep(100);
+		Thread.sleep(100);
 	}
 	
 	

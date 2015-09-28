@@ -26,10 +26,13 @@ public class NormalizerBolt extends BaseBasicBolt {
     Task:
      1. make the words all lower case
      2. remove the common words
-
     ------------------------------------------------- */
-
-
+	String word = tuple.getString(0);
+	String token = word.trim().toLowerCase();
+	if (!this.commonWords.contains(token)) {
+		collector.emit(new Values(token));
+	}
+	// END TODO-----------------------
   }
 
   @Override

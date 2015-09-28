@@ -69,7 +69,7 @@ public class FileReaderSpout implements IRichSpout {
 		}
 	}
 	catch (IOException e) {
-		e.printStackTrace;
+		e.printStackTrace();
 	}
 	finally {
 		isComplete = true;

@@ -33,12 +33,15 @@ public class TopWordFinderTopologyPartB {
     FileReaderSpout -> "spout"
     SplitSentenceBolt -> "split"
     WordCountBolt -> "count"
-
-
-
     ------------------------------------------------- */
 
-
+	builder.setSpout("spout", new FileReaderSpout(), 5);
+	
+	builder.setBolt("split", new SplitSentenceBolt(), 8).shuffleGrouping("spout");
+	builder.setBolt("count", new WordCountBolt(), 12).fieldsGrouping("split", new Fields("word"));
+	
+	// END TODO-----------------------
+	
     config.setMaxTaskParallelism(3);
 
     LocalCluster cluster = new LocalCluster();

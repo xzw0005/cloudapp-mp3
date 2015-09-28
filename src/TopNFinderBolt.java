@@ -30,7 +30,7 @@ public class TopNFinderBolt extends BaseBasicBolt {
     ----------------------TODO-----------------------
     Task: keep track of the top N words
     ------------------------------------------------- */
-	HashMap<String, Integer> allWordsMap = new HashMap<String, Integer>();
+	final HashMap<String, Integer> allWordsMap = new HashMap<String, Integer>();
 
 	String word = tuple.getStringByField("word");
 	Integer count = tuple.getIntegerByField("count");
